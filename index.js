@@ -2,15 +2,6 @@ const { client, indexName, recipes } = require("./config");
 const { logBody } = require("./helpers");
 
 /**
- * Getting list of indices
- * run-func index getIndices
- */
-module.exports.getIndices = () => {
-  console.log(`Getting existing indices:`);
-  client.cat.indices({ format: "json" }, logBody);
-};
-
-/**
  * Indexing data from json file with recipes.
  * run-func index injectData
  */
@@ -22,6 +13,15 @@ module.exports.injectData = () => {
   ]);
 
   client.bulk({ refresh: true, body }, logBody);
+};
+
+/**
+ * Getting list of indices
+ * run-func index getIndices
+ */
+module.exports.getIndices = () => {
+  console.log(`Getting existing indices:`);
+  client.cat.indices({ format: "json" }, logBody);
 };
 
 /**

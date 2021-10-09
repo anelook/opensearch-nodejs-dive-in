@@ -17,7 +17,6 @@ module.exports.logTitles = (error, result) => {
         console.error(error);
     } else {
         const hits = result.body.hits.hits;
-        console.log(`Number of returned results is ${hits.length}`);
         console.log(hits.map((hit) => hit._source.title));
     }
 };
