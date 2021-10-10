@@ -2,146 +2,37 @@ const { client, indexName: index } = require("./config");
 const { logAggs } = require("./helpers");
 
 /**
- * Searching for exact matches of a value in a field.
- * `run-func aggregate field rating`
+ * Get metric aggregations for the field
+ * Examples: stats, extended_stats, percentiles, terms
+ * `run-func aggregate metric avg rating`
  */
-module.exports.field = (field) => {
+module.exports.metric = (metric, field) => {
     const body = {
         aggs: {
-            [field]: {
-                terms: {
+            [field]: { // aggregation name
+                [metric]: { // aggregation function
                     field
                 }
-            },
+            }
         },
+        // query: {
+        //     match: {
+        //         [matchField]: matchValue
+        //     }
+        // },
     };
     client.search(
         {
             index,
             body,
-            size: 0,
+            size: 0, // we're not interested in `hits`
         },
         logAggs.bind(this, field)
     );
 };
 
 /**
- * Searching for exact matches of a value in a field.
- * `run-func aggregate average rating`
- */
-module.exports.average = (field) => {
-    const body = {
-        aggs: {
-            [field]: {
-                avg: {
-                    field
-                }
-            }
-        },
-    };
-    client.search(
-        {
-            index,
-            body,
-            size: 0,
-        },
-        logAggs.bind(this, field)
-    );
-};
-
-/**
- * Searching for exact matches of a value in a field.
- * `run-func aggregate withMatch rating`
- */
-module.exports.withMatch = (field, matchField, matchValue) => {
-    const body = {
-        query: {
-            match: {
-                [matchField]: matchValue
-            }
-        },
-        aggs: {
-            [field]: {
-                avg: {
-                    field
-                }
-            }
-        },
-    };
-    client.search(
-        {
-            index,
-            body,
-            size: 0,
-        },
-        logAggs.bind(this, field)
-    );
-};
-
-/**
- * Searching for exact matches of a value in a field.
- */
-// module.exports.aggsFieldAndMatch = (field, value) => {
-//   const body = {
-//     query: {
-//       match: {
-//         [field]: value
-//       }
-//     },
-//     aggs: {
-//       [field]: {
-//         terms: {
-//           field
-//         }
-//       },
-//     },
-//   };
-//   client.search(
-//       {
-//         index: indexName,
-//         body,
-//       },
-//       logAggs.bind(this, field)
-//   );
-// };
-// run-func aggs.js aggsFieldAndMatch rating 5
-
-
-
-//
-// /**
-//  * Searching for exact matches of a value in a field.
-//  * `run-func aggregate withMatch rating`
-//  */
-// module.exports.aggsFieldAndMatch = (field, matchField, matchValue) => {
-//     const body = {
-//         query: {
-//             match: {
-//                 [matchField]: matchValue
-//             }
-//         },
-//         aggs: {
-//             [field]: {
-//                 terms: {
-//                     field
-//                 }
-//             },
-//         },
-//     };
-//     client.search(
-//         {
-//             index: indexName,
-//             body,
-//             size: 0
-//         },
-//         logAggs.bind(this, field)
-//     );
-// };
-// run-func aggs.js aggsFieldAndMatch rating title beer
-
-
-/**
- * Searching for exact matches of a value in a field.
+ * Histogram with interval
  * `run-func aggregate histogram rating 1`
  */
 module.exports.histogram = (field, interval) => {
@@ -157,7 +48,7 @@ module.exports.histogram = (field, interval) => {
     };
     client.search(
         {
-            index: indexName,
+            index,
             body,
             size: 0,
         },
@@ -166,7 +57,7 @@ module.exports.histogram = (field, interval) => {
 };
 
 /**
- * Searching for exact matches of a value in a field.
+ * Date histogram with interval
  * `run-func aggregate dateHistogram date year`
  */
 module.exports.dateHistogram = (field, interval) => {
@@ -176,6 +67,31 @@ module.exports.dateHistogram = (field, interval) => {
                 date_histogram: {
                     field,
                     interval
+                }
+            },
+        },
+    };
+    client.search(
+        {
+            index,
+            body,
+            size: 0,
+        },
+        logAggs.bind(this, field)
+    );
+};
+
+/**
+ * Date histogram with number of buckets
+ * `run-func aggregate autoDateHistogram date 3`
+ */
+module.exports.autoDateHistogram = (field, buckets) => {
+    const body = {
+        aggs: {
+            [field]: {
+                auto_date_histogram: {
+                    field,
+                    buckets
                 }
             },
         },

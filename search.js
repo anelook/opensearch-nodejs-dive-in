@@ -29,13 +29,12 @@ module.exports.match = (field, query, fuzziness) => {
  * Matching a phrase (full-text query)
  * `run-func search phrase directions "pizza pineapple" 10`
  */
-module.exports.phrase = (field, query, slop) => {
+module.exports.phrase = (field, query) => {
   const body = {
     query: {
       match_phrase: {
         [field]: {
-          query,
-          slop,
+          query
         },
       },
     },
@@ -51,9 +50,9 @@ module.exports.phrase = (field, query, slop) => {
 
 /**
  * Using special operators within a query string and a size parameter (full-text query)
- * `run-func search queryString ingredients "(salmon|tuna) +tomato -onion"`
+ * `run-func search queryString title "+beer -garlic -soup (lime | ginger)"`
  */
-module.exports.queryString = (field, query) => {
+module.exports.queryString = (field, query, size) => {
   const body = {
     query: {
       query_string: {
@@ -66,6 +65,7 @@ module.exports.queryString = (field, query) => {
     {
       index,
       body,
+      size
     },
     logTitles
   );
@@ -116,29 +116,6 @@ module.exports.range = (field, gte, lte) => {
   );
 };
 
-/**
- * Specifying fuzziness to account for typos and misspelling (term-level query)
- * `run-func search fuzzyTerm title pinapple 2`
- */
-module.exports.fuzzyTerm = (field, value, fuzziness) => {
-  const query = {
-    query: {
-      fuzzy: {
-        [field]: {
-          value,
-          fuzziness,
-        },
-      },
-    },
-  };
-  client.search(
-    {
-      index,
-      body: query,
-    },
-    logTitles
-  );
-};
 
 /**
  * Combining several queries together (boolean query)
@@ -148,12 +125,15 @@ module.exports.boolean = () => {
   const body = {
     query: {
       bool: {
+        filter: [{ range: { rating: { gte: 4 } } }],
         must: [
           { match: { categories: "Quick & Easy" } },
           { match: { title: "beer" } },
         ],
-        // must_not: { match: { ingredients: "garlic" } },
-        filter: [{ range: { rating: { gte: 4 } } }],
+        should: [
+          { match: { categories: "Cocktails" } },
+        ],
+        must_not: { match: { ingredients: "garlic" } }
       },
     },
   };

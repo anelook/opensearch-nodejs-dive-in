@@ -3,7 +3,8 @@ const { logBody } = require("./helpers");
 
 /**
  * Indexing data from json file with recipes.
- * run-func index injectData
+ * Format: action \n document \n action \n document ...
+ * `run-func index injectData`
  */
 module.exports.injectData = () => {
   console.log(`Ingesting data: ${recipes.length} recipes`);
