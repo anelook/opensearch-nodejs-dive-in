@@ -3,7 +3,7 @@ const { logTitles } = require("./helpers");
 
 /**
  * Finding matches sorted by relevance (full-text query)
- * `run-func search match title "ice-cream with berries"`
+ * `run-func search match title "soups with beer and garlic"`
  */
 module.exports.match = (field, query) => {
   const body = {
@@ -49,7 +49,7 @@ module.exports.phrase = (field, query) => {
 
 /**
  * Using special operators within a query string and a size parameter (full-text query)
- * `run-func search queryString ingredients "+beer -garlic -cheese (lime | ginger)"`
+ * `run-func search queryString title "+beer -garlic -cheese (lime | ginger)"`
  */
 module.exports.queryString = (field, query) => {
   const body = {
