@@ -9,7 +9,7 @@ const { logAggs } = require("./helpers");
 module.exports.metric = (metric, field) => {
     const body = {
         aggs: {
-            [field]: { // aggregation name
+            [`aggs-for-${field}`]: { //aggs name
                 [metric]: { // aggregation function
                     field
                 }
@@ -27,7 +27,7 @@ module.exports.metric = (metric, field) => {
             body,
             size: 0, // we're not interested in `hits`
         },
-        logAggs.bind(this, field)
+        logAggs.bind(this,`aggs-for-${field}`)
     );
 };
 
@@ -38,7 +38,7 @@ module.exports.metric = (metric, field) => {
 module.exports.histogram = (field, interval) => {
     const body = {
         aggs: {
-            [field]: {
+            [`aggs-for-${field}`]: {
                 histogram: {
                     field,
                     interval
@@ -52,7 +52,7 @@ module.exports.histogram = (field, interval) => {
             body,
             size: 0,
         },
-        logAggs.bind(this, field)
+        logAggs.bind(this, `aggs-for-${field}`)
     );
 };
 
@@ -63,7 +63,7 @@ module.exports.histogram = (field, interval) => {
 module.exports.dateHistogram = (field, interval) => {
     const body = {
         aggs: {
-            [field]: {
+            [`aggs-for-${field}`]: {
                 date_histogram: {
                     field,
                     interval
@@ -77,7 +77,7 @@ module.exports.dateHistogram = (field, interval) => {
             body,
             size: 0,
         },
-        logAggs.bind(this, field)
+        logAggs.bind(this, `aggs-for-${field}`)
     );
 };
 
@@ -88,7 +88,7 @@ module.exports.dateHistogram = (field, interval) => {
 module.exports.autoDateHistogram = (field, buckets) => {
     const body = {
         aggs: {
-            [field]: {
+            [`aggs-for-${field}`]: {
                 auto_date_histogram: {
                     field,
                     buckets
@@ -102,7 +102,7 @@ module.exports.autoDateHistogram = (field, buckets) => {
             body,
             size: 0,
         },
-        logAggs.bind(this, field)
+        logAggs.bind(this, `aggs-for-${field}`)
     );
 };
 
