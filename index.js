@@ -8,7 +8,7 @@ const { logBody } = require("./helpers");
  */
 module.exports.injectData = () => {
   console.log(`Ingesting data: ${recipes.length} recipes`);
-  const body = recipes.flatMap((doc) => [
+  const body = recipes.flatMap(doc => [
     { index: { _index: indexName } },
     doc,
   ]);

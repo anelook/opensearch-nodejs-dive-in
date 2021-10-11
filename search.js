@@ -5,13 +5,12 @@ const { logTitles } = require("./helpers");
  * Finding matches sorted by relevance (full-text query)
  * `run-func search match title "ice-cream with berries"`
  */
-module.exports.match = (field, query, fuzziness) => {
+module.exports.match = (field, query) => {
   const body = {
     query: {
       match: {
         [field]: {
           query,
-          fuzziness,
         },
       },
     },
@@ -27,7 +26,7 @@ module.exports.match = (field, query, fuzziness) => {
 
 /**
  * Matching a phrase (full-text query)
- * `run-func search phrase directions "pizza pineapple" 10`
+ * `run-func search phrase title "beer cheese"`
  */
 module.exports.phrase = (field, query) => {
   const body = {
@@ -50,9 +49,9 @@ module.exports.phrase = (field, query) => {
 
 /**
  * Using special operators within a query string and a size parameter (full-text query)
- * `run-func search queryString title "+beer -garlic -soup (lime | ginger)"`
+ * `run-func search queryString ingredients "+beer -garlic -cheese (lime | ginger)"`
  */
-module.exports.queryString = (field, query, size) => {
+module.exports.queryString = (field, query) => {
   const body = {
     query: {
       query_string: {
@@ -64,8 +63,7 @@ module.exports.queryString = (field, query, size) => {
   client.search(
     {
       index,
-      body,
-      size
+      body
     },
     logTitles
   );
