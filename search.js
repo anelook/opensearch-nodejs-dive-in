@@ -92,6 +92,10 @@ module.exports.term = (field, value) => {
 
 /**
  * Searching for a range of values in a field (term-level query)
+ * gt (greater than)
+ * gte (greater than or equal to)
+ * lt (less than)
+ * lte (less than or equal to)
  * `run-func search range sodium 0 100`
  */
 module.exports.range = (field, gte, lte) => {

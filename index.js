@@ -45,10 +45,10 @@ module.exports.getMapping = () => {
  * Deleting the index
  * run-func index delete
  */
-module.exports.deleteIndex = () => {
+module.exports.delete = (index) => {
   client.indices.delete(
       {
-        index: indexName,
+        index: index || indexName,
       },
       logBody
   );

@@ -10,7 +10,7 @@ module.exports.metric = (metric, field) => {
     const body = {
         aggs: {
             [`aggs-for-${field}`]: { //aggs name
-                [metric]: { // aggregation function
+                [metric]: { // aggregation type
                     field
                 }
             }
@@ -39,7 +39,7 @@ module.exports.histogram = (field, interval) => {
     const body = {
         aggs: {
             [`aggs-for-${field}`]: {
-                histogram: {
+                histogram: { // aggregation type
                     field,
                     interval
                 }
