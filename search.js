@@ -26,14 +26,15 @@ module.exports.match = (field, query) => {
 
 /**
  * Matching a phrase (full-text query)
- * `run-func search phrase title "beer cheese"`
+ * `run-func search phrase title 'pasta with cheese'`
  */
-module.exports.phrase = (field, query) => {
+module.exports.phrase = (field, query, slop) => {
   const body = {
     query: {
       match_phrase: {
         [field]: {
-          query
+          query,
+          slop
         },
       },
     },
@@ -49,7 +50,7 @@ module.exports.phrase = (field, query) => {
 
 /**
  * Using special operators within a query string and a size parameter (full-text query)
- * `run-func search queryString title "+beer -garlic -cheese (lime | ginger)"`
+ * `run-func search queryString title '+(dessert | cake) -garlic  (mango | caramel | cinnamon)'`
  */
 module.exports.queryString = (field, query) => {
   const body = {
