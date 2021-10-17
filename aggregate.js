@@ -15,6 +15,7 @@ module.exports.metric = (metric, field) => {
         },
       },
     },
+    // try mixing with search queries!
     // query: {
     //     match: {
     //         [matchField]: matchValue
