@@ -3,8 +3,8 @@ const { logTitles } = require("./helpers");
 
 /**
  * Finding matches sorted by relevance (full-text query)
- * `run-func search match title "soups with beer and garlic"`
- * `run-func search match title "pizza salad and cheese"`
+ * run-func search match title "soups with beer and garlic"
+ * run-func search match title "pizza salad and cheese"
  */
 module.exports.match = (field, query) => {
   const body = {
@@ -27,8 +27,8 @@ module.exports.match = (field, query) => {
 
 /**
  * Matching a phrase (full-text query)
- * `run-func search phrase title 'pasta with cheese'`
- *  `run-func search phrase title 'milk chocolate cake'`
+ * run-func search phrase title 'pasta with cheese'
+ * run-func search phrase title 'milk chocolate cake'
  */
 module.exports.phrase = (field, query, slop) => {
   const body = {
@@ -52,8 +52,8 @@ module.exports.phrase = (field, query, slop) => {
 
 /**
  * Using special operators within a query string and a size parameter (full-text query)
- * `run-func search queryString title '+(dessert | cake) -garlic  (mango | caramel | cinnamon)'`
- * `run-func search queryString title '+(salad | soup) -broccoli  (tomato | apple)'`
+ * run-func search queryString title '+(dessert | cake) -garlic  (mango | caramel | cinnamon)'
+ * run-func search queryString title '+(salad | soup) -broccoli  (tomato | apple)'
  */
 module.exports.queryString = (field, query) => {
   const body = {
@@ -75,7 +75,7 @@ module.exports.queryString = (field, query) => {
 
 /**
  * Searching for exact matches of a value in a field (term-level query)
- * `run-func search term sodium 0`
+ * run-func search term sodium 0
  */
 module.exports.term = (field, value) => {
   const body = {
@@ -100,7 +100,7 @@ module.exports.term = (field, value) => {
  * gte (greater than or equal to)
  * lt (less than)
  * lte (less than or equal to)
- * `run-func search range sodium 0 100`
+ * run-func search range sodium 0 100
  */
 module.exports.range = (field, gte, lte) => {
   const body = {
@@ -125,7 +125,7 @@ module.exports.range = (field, gte, lte) => {
 
 /**
  * Combining several queries together (boolean query)
- * `run-func search boolean`
+ * run-func search boolean
  */
 module.exports.boolean = () => {
   const body = {

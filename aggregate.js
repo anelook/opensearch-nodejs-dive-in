@@ -4,7 +4,7 @@ const { logAggs } = require("./helpers");
 /**
  * Get metric aggregations for the field
  * Examples: stats, extended_stats, percentiles, terms
- * `run-func aggregate metric avg rating`
+ * run-func aggregate metric avg rating
  */
 module.exports.metric = (metric, field) => {
   const body = {
@@ -34,7 +34,7 @@ module.exports.metric = (metric, field) => {
 
 /**
  * Histogram with interval
- * `run-func aggregate histogram rating 1`
+ * run-func aggregate histogram rating 1
  */
 module.exports.histogram = (field, interval) => {
   const body = {
@@ -59,7 +59,7 @@ module.exports.histogram = (field, interval) => {
 
 /**
  * Date histogram with interval
- * `run-func aggregate dateHistogram date year`
+ * run-func aggregate dateHistogram date year
  */
 module.exports.dateHistogram = (field, interval) => {
   const body = {
@@ -84,7 +84,7 @@ module.exports.dateHistogram = (field, interval) => {
 
 /**
  * Date histogram with number of buckets
- * `run-func aggregate autoDateHistogram date 3`
+ * run-func aggregate autoDateHistogram date 3
  */
 module.exports.autoDateHistogram = (field, buckets) => {
   const body = {
