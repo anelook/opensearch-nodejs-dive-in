@@ -1,6 +1,8 @@
 Hands-on material for session on how to start working with OpenSearch and NodeJS
 ================================================================================
 
+In detail guidance can be also found in articles `how to write search queries with OpenSearch and NodeJS <https://developer.aiven.io/docs/products/opensearch/howto/opensearch-and-nodejs.html>`_ and `how to use aggregations with OpenSearch and NodeJS <https://developer.aiven.io/docs/products/opensearch/howto/opensearch-aggregations-and-nodejs.html>`_.
+
 Prerequisites
 -------------
 
@@ -62,12 +64,6 @@ Structure of this repository
 `aggregate.js` - examples of different types of aggregation queries
 
 `config.js` and `helpers.js` contain operations required to connect to the cluster and log responses.
-
-
-Additional materials
---------------------
-
-For other examples and more information, check an article `how to use OpenSearch with NodeJS <https://developer.aiven.io/docs/products/opensearch/howto/get-started-with-nodejs.html>`_.
 
 
 License
