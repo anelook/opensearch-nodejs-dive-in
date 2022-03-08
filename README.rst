@@ -1,5 +1,5 @@
-Hands-on material for session on how to start working with OpenSearch and NodeJS
-================================================================================
+Hands-on material for a session on how to start working with OpenSearch and NodeJS
+==================================================================================
 
 Additional written guidance can be also found in articles `how to write search queries with OpenSearch and NodeJS <https://developer.aiven.io/docs/products/opensearch/howto/opensearch-and-nodejs.html>`_ and `how to use aggregations with OpenSearch and NodeJS <https://developer.aiven.io/docs/products/opensearch/howto/opensearch-aggregations-and-nodejs.html>`_.
 
@@ -19,7 +19,7 @@ Running locally
 
     npm install
 
-2. Copy .env.example, rename to .env and there the service_uri of your OpenSearch cluster.
+2. Copy .env.example, rename it to .env and add the service_uri of your OpenSearch cluster to that file.
 
 3. Download full_format_recipes from `Kaggle <https://www.kaggle.com/hugodarwood/epirecipes?select=full_format_recipes.json>`_. Unzip and copy the JSON file to the root folder of this project.
 
@@ -27,7 +27,7 @@ Running locally
 
     npm i -g run-func
 
-You're all set! Retrieve the list of available indices by running in your terminal
+You're all set! Retrieve the list of available indices by running the following command in your terminal
 
 ::
 
@@ -41,7 +41,7 @@ How to use
 
     run-func index injectData
 
-Wait till the data is indexed. Can take 15-20 seconds.
+Wait till the data is indexed. This can take 15-20 seconds.
 
 2. Check `search.js` and `aggregate.js` for examples you can run. Every method contains a terminal command sample that you can try.
 
