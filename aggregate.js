@@ -106,3 +106,52 @@ module.exports.autoDateHistogram = (field, buckets) => {
     logAggs.bind(this, `aggs-for-${field}`)
   );
 };
+
+
+/**
+ * Calculating the moving average of number of added recipes across years
+ * run-func aggregate movingAverage
+ */
+module.exports.movingAverage = () => {
+  const body = {
+    aggs: {
+      recipes_per_year: { // 1. date histogram
+        date_histogram: {
+          field: "date",
+          interval: "year",
+        },
+        aggs: {
+          recipes_count: { // 2. metric aggregation to count new recipes
+            value_count: { // aggregate by number of documents with field 'date'
+              field: "date"
+            },
+          },
+          moving_average: {
+            moving_fn: { // 3. glue the aggregations
+              script: "MovingFunctions.unweightedAvg(values)", // 4. a built-in function
+              shift: 1, // 5. take into account the existing year as part of the window
+              window: 3, // 6. set size of the moving window
+              buckets_path: "recipes_count",
+              gap_policy: "insert_zeros", // account for years where no recipes were
+                                          // added and replace null value with zeros
+            },
+          },
+        },
+      },
+    },
+  };
+  client.search(
+      {
+        index,
+        body,
+        size: 0,
+      },
+      (error, result) => {
+        if (error) {
+          console.error(error);
+        } else {
+          console.log(result.body.aggregations["recipes_per_year"].buckets);
+        }
+      }
+  );
+};

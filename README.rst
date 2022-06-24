@@ -1,5 +1,5 @@
-Hands-on material for session on how to start working with OpenSearch and NodeJS
-================================================================================
+Hands-on material for session on how to start working with OpenSearch® and NodeJS
+==================================================================================
 
 Additional written guidance can be also found in articles `how to write search queries with OpenSearch and NodeJS <https://developer.aiven.io/docs/products/opensearch/howto/opensearch-and-nodejs.html>`_ and `how to use aggregations with OpenSearch and NodeJS <https://developer.aiven.io/docs/products/opensearch/howto/opensearch-aggregations-and-nodejs.html>`_.
 
