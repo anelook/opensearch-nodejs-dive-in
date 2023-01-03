@@ -31,7 +31,7 @@ You're all set! Retrieve the list of available indices by running in your termin
 
 ::
 
-    run-func search getIndices
+    run-func index getIndices
 
 
 How to use
